@@ -76,15 +76,20 @@
 
       #hasil {
         text-align: center;
-        font-size: 2rem;
-        margin-top: 20px;
-        z-index: 20;
+        font-size: 4vw; /* Lebih besar */
+        font-weight: bold; /* Tebal */
+        color: #ff69b4;
         position: fixed;
         left: 50%;
-        bottom: 100px;
-        transform: translateX(-50%);
-        width: 100vw;
+        top: 50%; /* Tengah vertikal */
+        transform: translate(-50%, -50%);
+        width: auto;
+        z-index: 999;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 32px 48px;
+        border-radius: 16px;
         pointer-events: none;
+        box-shadow: 0 4px 32px rgba(255, 105, 180, 0.3);
       }
 
       #play-audio {
@@ -126,11 +131,11 @@
     <button id="play-audio" class="btn">Play Musik</button>
     <div id="hasil"></div>
     <!-- Ganti src dengan file audio mp3 yang valid -->
-    <audio id="bg-music" src="23.mp3" loop></audio>
+    <audio id="bg-music" src="12.mp3" loop></audio>
 
     <script>
       const container = document.querySelector(".container");
-      const phrases = ["u wanna be my gf?", "hi you","i love you"];
+      const phrases = ["u wanna be my gf?", "mak lampir", "i love you"];
       const images = ["1.jpg", "2.jpg", "3.jpg", "4.jpg"]; // Ganti dengan nama file gambar Anda
       const hearts = ["❤️", "💖", "💕"];
       const numElements = 50;
@@ -147,7 +152,7 @@
 
           // Tentukan jenis elemen (teks, gambar, atau hati) secara acak
           const type = getRandom(0, 100);
-          if (type < 60) {
+          if (type < 70) {
             element.textContent = phrases[Math.floor(Math.random() * phrases.length)];
             element.classList.add("text");
           } else if (type < 80) {
@@ -156,8 +161,8 @@
           } else {
             const img = document.createElement("img");
             img.src = images[Math.floor(Math.random() * images.length)];
-            img.style.width = "8vw";
-            img.style.height = "8vw";
+            img.style.width = "12vw";
+            img.style.height = "12vw";
             img.style.objectFit = "cover";
             img.style.borderRadius = "5px";
             img.style.boxShadow = "0 0 10px rgba(255,255,255,0.5)";
@@ -205,8 +210,13 @@
       // Play audio jika tombol diklik
       document.getElementById("play-audio").onclick = function () {
         const audio = document.getElementById("bg-music");
-        audio.volume = 0.5;
-        audio.play();
+        if (audio.paused) {
+          audio.play();
+          this.textContent = "Matikan Musik";
+        } else {
+          audio.pause();
+          this.textContent = "Play Musik";
+        }
       };
 
       // Play audio otomatis saat halaman dibuka
@@ -221,4 +231,3 @@
     </script>
   </body>
 </html>
-
